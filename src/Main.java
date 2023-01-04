@@ -13,6 +13,8 @@ public class Main {
         System.out.println(size);
         long duration = System.currentTimeMillis()- start;
         System.out.println(duration + " ms");
+        System.out.println(getHumanReadableSize(size));
+        System.out.println(getSizeFromHumanReadable(getHumanReadableSize(size)));
 
 
 //        System.out.println(getFolderSize(file));
@@ -29,5 +31,30 @@ public class Main {
         }
         return sum;
     }
-
+    public static String getHumanReadableSize(long size){
+        String [] name = {"B","K","M","G","T"};
+        String s1="";
+        for(int i = 0; i<5;i++){
+            int s = (int) (Math.round(size/Math.pow(1024,i)));
+            if (s<1000){
+                s1=String.valueOf(s)+name[i];
+                return s1;
+            }
+        }
+      return "";
+    }
+     public static long getSizeFromHumanReadable(String size){
+         String [] name = {"B","K","M","G","T"};
+         String nameSize=size.replaceAll("[0-9]+","");
+         String numberSize = size.replaceAll("[^0-9]+","");
+         long ss= Long.parseLong(numberSize);
+         long s=0;
+         for (int i =0;i<5;i++){
+             if (nameSize.equals(name[i])) {
+                 s = (long) (ss * Math.pow(1024, i));
+                 return s;
+             }
+         }
+        return 0;
+     }
 }
